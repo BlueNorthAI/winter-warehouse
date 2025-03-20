@@ -56,7 +56,7 @@ import { useEffect } from 'react'
 //   status: string;
 //   Analyze: string;
 // }
-const kpiCustomer = [
+export const kpicust_m = [
   {
     Name: 'Lead Conversion Rate',
     Value: '14.91',
@@ -64,7 +64,7 @@ const kpiCustomer = [
     TargetAch: '83',
     container: <DonutChartContainer series={leadData_m} />,
     status: 'Above Target',
-    Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
+    Analyze: "",
   },
   {
     Name: 'Campaign ROI',
@@ -78,7 +78,7 @@ const kpiCustomer = [
       />
     ),
     status: 'Above Target',
-    Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
+    Analyze: "",
   },
   {
     Name: 'Campaign Attributed Pipeline',
@@ -92,7 +92,7 @@ const kpiCustomer = [
       />
     ),
     status: 'On Track',
-    Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
+    Analyze: "",
   },
   {
     Name: 'Open Pipeline',
@@ -106,11 +106,11 @@ const kpiCustomer = [
       />
     ),
     status: 'Above Target',
-    Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
+    Analyze: "",
   },
 ]
 
-const kpiInventory = [
+export const kpiInventory = [
   {
     Name: 'On Hand Balance',
     Value: '$8.46B',
@@ -118,7 +118,7 @@ const kpiInventory = [
     TargetAch: 83,
     container: <PieChartContainer series={handbalance_m} />,
     status: 'Above Target',
-    Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
+    Analyze: "",
   },
   {
     Name: 'Avg Inventory Valuation',
@@ -132,7 +132,7 @@ const kpiInventory = [
       />
     ),
     status: 'Below Target',
-    Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
+    Analyze: "",
   },
   {
     Name: 'Material Cost',
@@ -146,7 +146,7 @@ const kpiInventory = [
       />
     ),
     status: 'Below Target',
-    Analyze: '/snop/dashboard/analysis/invcostAnalysis',
+    Analyze: "",
   },
   {
     Name: 'Inventory Turns',
@@ -160,11 +160,11 @@ const kpiInventory = [
       />
     ),
     status: 'Above Target',
-    Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
+    Analyze: "",
   },
 ]
 
-const kpiProduct = [
+export const kpiProduct = [
   {
     Name: 'Late Shipments',
     Value: '$361.89M',
@@ -177,7 +177,7 @@ const kpiProduct = [
       />
     ),
     status: 'On Track',
-    Analyze: '/snop/dashboard/analysis/orderAnalysis',
+    Analyze: "",
   },
   {
     Name: 'On Time Shipment %',
@@ -191,7 +191,7 @@ const kpiProduct = [
       />
     ),
     status: 'Below Target',
-    Analyze: '/snop/dashboard/analysis/demandAnalysis',
+    Analyze: "",
   },
   {
     Name: 'Perfect Order %',
@@ -205,7 +205,7 @@ const kpiProduct = [
       />
     ),
     status: 'On Track',
-    Analyze: '/snop/dashboard/analysis/orderAnalysis',
+    Analyze: "",
   },
   {
     Name: 'Order to Invoice Cycle Time',
@@ -219,7 +219,7 @@ const kpiProduct = [
       />
     ),
     status: 'Above Target',
-    Analyze: '/snop/dashboard/analysis/orderAnalysis',
+    Analyze: "",
   },
 ]
 export default function Page({
@@ -431,7 +431,7 @@ export default function Page({
                 <div className="">
                   {' '}
                   <ul className="mx-4 grid grid-cols-2 gap-6">
-                    {kpiCustomer.map((kpi) => (
+                    {kpicust_m.map((kpi) => (
                       <li
                         key={kpi.Name}
                         className="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white shadow-xl shadow-slate-900/10 border"
