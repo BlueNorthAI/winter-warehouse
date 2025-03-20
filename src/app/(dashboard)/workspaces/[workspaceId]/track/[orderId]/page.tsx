@@ -46,17 +46,182 @@ import {
 import taskData from '@/features/trackTrace/components/tasks.json'
 import { useEffect } from 'react'
 
-// Define the type for KPI objects
-interface KPI {
-  Name: string;
-  Value: string | number;
-  Trend: string;
-  TargetAch: string | number;
-  container: JSX.Element;
-  status: string;
-  Analyze: string;
-}
+// // Define the type for KPI objects
+// interface KPI {
+//   Name: string;
+//   Value: string | number;
+//   Trend: string;
+//   TargetAch: string | number;
+//   container: JSX.Element;
+//   status: string;
+//   Analyze: string;
+// }
+const kpiCustomer = [
+  {
+    Name: 'Lead Conversion Rate',
+    Value: '14.91',
+    Trend: 'up',
+    TargetAch: '83',
+    container: <DonutChartContainer series={leadData_m} />,
+    status: 'Above Target',
+    Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
+  },
+  {
+    Name: 'Campaign ROI',
+    Value: '4.33',
+    Trend: 'up',
+    TargetAch: '$291.96',
+    container: (
+      <MultiBarChartContainer
+        categories={campaignCategories_m}
+        series={campaignSeries_m}
+      />
+    ),
+    status: 'Above Target',
+    Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
+  },
+  {
+    Name: 'Campaign Attributed Pipeline',
+    Value: '7.49M',
+    Trend: 'down',
+    TargetAch: 0,
+    container: (
+      <MultiStackColChartContainer
+        categories={pipelineCategories_m}
+        series={pipelineSeries_m}
+      />
+    ),
+    status: 'On Track',
+    Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
+  },
+  {
+    Name: 'Open Pipeline',
+    Value: '$10.02M',
+    Trend: 'down',
+    TargetAch: '$47.13k',
+    container: (
+      <MultiColumnChartContainer
+        categories={openCategories_m}
+        series={openSeries_m}
+      />
+    ),
+    status: 'Above Target',
+    Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
+  },
+]
 
+const kpiInventory = [
+  {
+    Name: 'On Hand Balance',
+    Value: '$8.46B',
+    Trend: 'up',
+    TargetAch: 83,
+    container: <PieChartContainer series={handbalance_m} />,
+    status: 'Above Target',
+    Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
+  },
+  {
+    Name: 'Avg Inventory Valuation',
+    Value: '$233.57M',
+    Trend: 'up',
+    TargetAch: 80,
+    container: (
+      <MultiBarChartContainer
+        categories={avgInventoryCategories_m}
+        series={avgInventorySeries_m}
+      />
+    ),
+    status: 'Below Target',
+    Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
+  },
+  {
+    Name: 'Material Cost',
+    Value: '$4.17B',
+    Trend: 'up',
+    TargetAch: 77,
+    container: (
+      <MultiBarChartContainer
+        categories={materialCategories_m}
+        series={materialSeries_m}
+      />
+    ),
+    status: 'Below Target',
+    Analyze: '/snop/dashboard/analysis/invcostAnalysis',
+  },
+  {
+    Name: 'Inventory Turns',
+    Value: '7',
+    Trend: 'up',
+    TargetAch: 95,
+    container: (
+      <MultiBarChartContainer
+        categories={turnsCategories_m}
+        series={turnsSeries_m}
+      />
+    ),
+    status: 'Above Target',
+    Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
+  },
+]
+
+const kpiProduct = [
+  {
+    Name: 'Late Shipments',
+    Value: '$361.89M',
+    Trend: 'up',
+    TargetAch: 90,
+    container: (
+      <MultiColumnChartContainer
+        categories={lateCategories_m}
+        series={lateSeries_m}
+      />
+    ),
+    status: 'On Track',
+    Analyze: '/snop/dashboard/analysis/orderAnalysis',
+  },
+  {
+    Name: 'On Time Shipment %',
+    Value: '73.8%',
+    Trend: 'down',
+    TargetAch: 90,
+    container: (
+      <MultiAreaChartContainer
+        categories={ontimeCategories_m}
+        series={ontimeSeries_m}
+      />
+    ),
+    status: 'Below Target',
+    Analyze: '/snop/dashboard/analysis/demandAnalysis',
+  },
+  {
+    Name: 'Perfect Order %',
+    Value: '$300M',
+    Trend: 'up',
+    TargetAch: 77,
+    container: (
+      <MultiBarChartContainer
+        categories={perfectCategories_m}
+        series={perfectFirstSeries_m}
+      />
+    ),
+    status: 'On Track',
+    Analyze: '/snop/dashboard/analysis/orderAnalysis',
+  },
+  {
+    Name: 'Order to Invoice Cycle Time',
+    Value: '75',
+    Trend: 'up',
+    TargetAch: 95,
+    container: (
+      <MultiLineChartContainer
+        categories={invoiceCategories_m}
+        series={invoiceSeries_m}
+      />
+    ),
+    status: 'Above Target',
+    Analyze: '/snop/dashboard/analysis/orderAnalysis',
+  },
+]
 export default function Page({
   params,
 }: {
@@ -76,172 +241,7 @@ export default function Page({
   const exp = taskData.filter((task) => task.orderId === orderId)[0]
 
   // Move these constant arrays inside the component
-  const kpiCustomer = [
-    {
-      Name: 'Lead Conversion Rate',
-      Value: '14.91',
-      Trend: 'up',
-      TargetAch: '83',
-      container: <DonutChartContainer series={leadData_m} />,
-      status: 'Above Target',
-      Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
-    },
-    {
-      Name: 'Campaign ROI',
-      Value: '4.33',
-      Trend: 'up',
-      TargetAch: '$291.96',
-      container: (
-        <MultiBarChartContainer
-          categories={campaignCategories_m}
-          series={campaignSeries_m}
-        />
-      ),
-      status: 'Above Target',
-      Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
-    },
-    {
-      Name: 'Campaign Attributed Pipeline',
-      Value: '7.49M',
-      Trend: 'down',
-      TargetAch: 0,
-      container: (
-        <MultiStackColChartContainer
-          categories={pipelineCategories_m}
-          series={pipelineSeries_m}
-        />
-      ),
-      status: 'On Track',
-      Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
-    },
-    {
-      Name: 'Open Pipeline',
-      Value: '$10.02M',
-      Trend: 'down',
-      TargetAch: '$47.13k',
-      container: (
-        <MultiColumnChartContainer
-          categories={openCategories_m}
-          series={openSeries_m}
-        />
-      ),
-      status: 'Above Target',
-      Analyze: '/snop/dashboard/analysis/pipelineAnalysis',
-    },
-  ]
 
-  const kpiInventory = [
-    {
-      Name: 'On Hand Balance',
-      Value: '$8.46B',
-      Trend: 'up',
-      TargetAch: 83,
-      container: <PieChartContainer series={handbalance_m} />,
-      status: 'Above Target',
-      Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
-    },
-    {
-      Name: 'Avg Inventory Valuation',
-      Value: '$233.57M',
-      Trend: 'up',
-      TargetAch: 80,
-      container: (
-        <MultiBarChartContainer
-          categories={avgInventoryCategories_m}
-          series={avgInventorySeries_m}
-        />
-      ),
-      status: 'Below Target',
-      Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
-    },
-    {
-      Name: 'Material Cost',
-      Value: '$4.17B',
-      Trend: 'up',
-      TargetAch: 77,
-      container: (
-        <MultiBarChartContainer
-          categories={materialCategories_m}
-          series={materialSeries_m}
-        />
-      ),
-      status: 'Below Target',
-      Analyze: '/snop/dashboard/analysis/invcostAnalysis',
-    },
-    {
-      Name: 'Inventory Turns',
-      Value: '7',
-      Trend: 'up',
-      TargetAch: 95,
-      container: (
-        <MultiBarChartContainer
-          categories={turnsCategories_m}
-          series={turnsSeries_m}
-        />
-      ),
-      status: 'Above Target',
-      Analyze: '/snop/dashboard/analysis/inventoryAnalysis',
-    },
-  ]
-
-  const kpiProduct = [
-    {
-      Name: 'Late Shipments',
-      Value: '$361.89M',
-      Trend: 'up',
-      TargetAch: 90,
-      container: (
-        <MultiColumnChartContainer
-          categories={lateCategories_m}
-          series={lateSeries_m}
-        />
-      ),
-      status: 'On Track',
-      Analyze: '/snop/dashboard/analysis/orderAnalysis',
-    },
-    {
-      Name: 'On Time Shipment %',
-      Value: '73.8%',
-      Trend: 'down',
-      TargetAch: 90,
-      container: (
-        <MultiAreaChartContainer
-          categories={ontimeCategories_m}
-          series={ontimeSeries_m}
-        />
-      ),
-      status: 'Below Target',
-      Analyze: '/snop/dashboard/analysis/demandAnalysis',
-    },
-    {
-      Name: 'Perfect Order %',
-      Value: '$300M',
-      Trend: 'up',
-      TargetAch: 77,
-      container: (
-        <MultiBarChartContainer
-          categories={perfectCategories_m}
-          series={perfectFirstSeries_m}
-        />
-      ),
-      status: 'On Track',
-      Analyze: '/snop/dashboard/analysis/orderAnalysis',
-    },
-    {
-      Name: 'Order to Invoice Cycle Time',
-      Value: '75',
-      Trend: 'up',
-      TargetAch: 95,
-      container: (
-        <MultiLineChartContainer
-          categories={invoiceCategories_m}
-          series={invoiceSeries_m}
-        />
-      ),
-      status: 'Above Target',
-      Analyze: '/snop/dashboard/analysis/orderAnalysis',
-    },
-  ]
 
   return (
     <>
