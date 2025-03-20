@@ -56,7 +56,8 @@ import { useEffect } from 'react'
 //   status: string;
 //   Analyze: string;
 // }
-export const kpicust_m = [
+
+const kpicust_m = [
   {
     Name: 'Lead Conversion Rate',
     Value: '14.91',
@@ -110,7 +111,7 @@ export const kpicust_m = [
   },
 ]
 
-export const kpiInventory = [
+const kpiInventory = [
   {
     Name: 'On Hand Balance',
     Value: '$8.46B',
@@ -164,7 +165,7 @@ export const kpiInventory = [
   },
 ]
 
-export const kpiProduct = [
+const kpiProduct = [
   {
     Name: 'Late Shipments',
     Value: '$361.89M',
@@ -222,6 +223,7 @@ export const kpiProduct = [
     Analyze: "",
   },
 ]
+
 export default function Page({
   params,
 }: {
